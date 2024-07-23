@@ -5,26 +5,22 @@ I_1 = eye(r);
 H = [p_trans I_1]; % Parity check matrix
 n = size(H, 2);
 
-% Step 1 : Generator matrix
 p = p_trans';
 k = n - r;
 I_2 = eye(k);
 G = [I_2 p];
 
 
-% Step 2 : Generate(U) a vector of decimal numbers from 0 to 2^k - 1
+% Generate(U) a vector of decimal numbers from 0 to 2^k - 1
 dec_numbers = 0:(2^k - 1);
 % Convert each decimal number to a binary string
 bin_strings = dec2bin(dec_numbers);
 % Convert each binary string to a binary vector
 U = bin_strings - '0';
-
-
-% Step 3 : Calculate increment
 increment = 1;
 
 
-% Step 4 : Calculate the codeword for each binary vector and Minimum distance
+% Calculate the codeword for each binary vector and Minimum distance
 codewords = mod(U * G, 2);
 min_distance = inf;
 % Calculate the number of codewords
@@ -45,23 +41,23 @@ for i = 1:increment:num_codewords
 end
 
 
-% Step 5 : Find syndrome vector
+% Syndrome vector
 % Syndrome vector calculation: S = R * H'
 % Where R is received codeword and H' is the transpose of the parity check matrix
 syndrome_d_1 = mod(codeword_min_d_1 * H', 2);
 syndrome_d_2 = mod(codeword_min_d_2 * H', 2);
 
 
-% Step 6 : Generate transmitted code from last 4 LSB bits from Information bits
+% Generate transmitted code from last 4 LSB bits from Information bits
 info_bits = [0 0 0 1];
 transmitted_code = mod(info_bits * G, 2);
 
 
-% Step 7: Find syndrome for the transmitted codeword
+% Syndrome for the transmitted codeword
 syndrome_transmitted_code = mod(transmitted_code * H', 2);
 
 
-% Step 8 : Flip a bit and find syndrome
+% Flip a bit and find syndrome
 received_code = transmitted_code;
 % Flip 3rd bit from LSB or 5th bit from MSB (ID = 321)
 s = size(transmitted_code, 2);
