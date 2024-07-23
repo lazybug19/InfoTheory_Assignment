@@ -1,3 +1,5 @@
 # Info Theory and Source Coding
 
-Assignment 1 : Entropy calculation of random information and Arithmetic Encoding
+MATLAB Codes for:
+- Entropy calculation of random information and Arithmetic Encoding
+- Syndrome Decoding and Error Detection and Correction
